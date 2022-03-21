@@ -6,13 +6,15 @@ import GifList from './components/GifList';
 
 export default function App() {
   const [gifs, setGifs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => performSearch, []);
+  useEffect(() => performSearch(), []);
 
-  const performSearch = async(query)=> {
+  const performSearch = async(query = 'dog')=> {
     try {
       const {data} = await axios.get(`http://api.giphy.com/v1/gifs/search?q=${query}&limit=24&api_key=dc6zaTOxFJmzC`);
       setGifs(data.data);
+      setLoading(false);
     } catch (err) {
         console.log('Error fetching and parsing data', err);
       }
@@ -27,7 +29,11 @@ export default function App() {
         </div>   
       </div>    
       <div className="main-content">
-        <GifList data={gifs} />
+        {
+          (loading) 
+          ? <p>loading ...</p>
+          : <GifList data={gifs} />
+        }
       </div>
     </div>
   )

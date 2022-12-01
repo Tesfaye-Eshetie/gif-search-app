@@ -12,8 +12,9 @@ export default function App() {
 
   const performSearch = async(query = 'dog')=> {
     try {
-      const {data} = await axios.get(`http://api.giphy.com/v1/gifs/search?q=${query}&limit=24&api_key=dc6zaTOxFJmzC`);
+      const {data} = await axios.get(`http://api.giphy.com/v1/gifs/search?q=${query}&limit=12&api_key=n9Ckrer7sonqSKbjISSzcG1qxwDAzGPl`);
       setGifs(data.data);
+      console.log(data)
       setLoading(false);
     } catch (err) {
         console.log('Error fetching and parsing data', err);
